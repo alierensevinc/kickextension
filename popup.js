@@ -12,22 +12,26 @@ document.addEventListener('DOMContentLoaded', function() {
     addButton.addEventListener('click', function() {
         chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             const url = tabs[0].url;
-            console.log(tabs);
             if (url) {
-                chrome.storage.sync.get(['watchList'], function(result) {
-                    const watchList = result.watchList || [];
-                    if (!watchList.includes(url)) {
-                        watchList.push(url);
-                        chrome.storage.sync.set({ watchList: watchList }, function() {
-                            addUrlToList(url);
-                        });
-                    }
-                });
+                addUrl(url);
             } else {
                 console.error('Unable to retrieve the URL.');
             }
         });
     });
+
+    // Function to add a URL to the watch list
+    function addUrl(url) {
+        chrome.storage.sync.get(['watchList'], function(result) {
+            const watchList = result.watchList || [];
+            if (!watchList.includes(url)) {
+                watchList.push(url);
+                chrome.storage.sync.set({ watchList: watchList }, function() {
+                    addUrlToList(url);
+                });
+            }
+        });
+    }
 
     // Function to add a URL to the list in the popup
     function addUrlToList(url) {

@@ -8,6 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative; /* Add this line */
 }
 
 .container {
@@ -16,6 +17,12 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 400px; /* Make the popup wider */
+}
+
+#buttonContainer {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
 }
 
 h1 {

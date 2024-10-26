@@ -6,5 +6,14 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "tabs"]
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
 }
