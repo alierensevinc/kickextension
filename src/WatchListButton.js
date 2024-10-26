@@ -5,11 +5,13 @@ const WatchListButton = () => {
     const [currentUrl, setCurrentUrl] = useState('');
 
     useEffect(() => {
+        console.log('WatchListButton mounted');
+
         // Function to update button text based on watch list status
         const updateButtonText = (url) => {
             chrome.storage.sync.get(['watchList'], function(result) {
                 const watchList = result.watchList || [];
-                if (watchList.includes(url)) {
+                if (watchList.some(item => item.url === url)) {
                     setButtonText('Remove From WatchList');
                 } else {
                     setButtonText('Add To WatchList');
@@ -36,13 +38,25 @@ const WatchListButton = () => {
 
         // Cleanup listener on component unmount
         return () => {
+            console.log('WatchListButton unmounted');
             chrome.storage.onChanged.removeListener(handleStorageChange);
         };
     }, [currentUrl]);
 
     // Handle button click
     const handleClick = () => {
-        chrome.runtime.sendMessage({ action: 'toggleWatchList' });
+        // Find the target div and extract the title from the first span
+        const targetDiv = document.querySelector('.flex.min-w-0.max-w-full.shrink.gap-1.overflow-hidden');
+        const firstSpanTitle = targetDiv ? targetDiv.querySelector('span')?.title : '';
+
+        // Send the data along with the action
+        chrome.runtime.sendMessage({
+            action: 'toggleWatchList',
+            data: {
+                url: currentUrl,
+                title: firstSpanTitle
+            }
+        });
     };
 
     return (

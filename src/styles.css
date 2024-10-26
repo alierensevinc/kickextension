@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color emoji;
     background-color: #1e1e1e;
     color: #ffffff;
     margin: 0;
@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative; /* Add this line */
+    position: relative;
 }
 
 .container {
@@ -16,19 +16,19 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 400px; /* Make the popup wider */
+    width: 400px;
 }
 
 #buttonContainer {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
+    top: 10px;
+    right: 10px;
 }
 
 h1 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #00d1b2;
+    color: #53FC18;
 }
 
 .url-list {
@@ -48,13 +48,13 @@ h1 {
 }
 
 .url-item a {
-    color: #00d1b2;
+    color: #53FC18;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .url-item a:hover {
-    color: #00b89c;
+    color: #45d314;
 }
 
 .url-item button {
@@ -70,4 +70,18 @@ h1 {
 
 .url-item button:hover {
     background-color: #ff1f4b;
+}
+
+.btn-primary {
+    background-color: #53FC18;
+    color: #000000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #45d314;
 }
