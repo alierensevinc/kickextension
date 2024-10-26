@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         urlItem.className = 'url-item list-group-item';
         const a = document.createElement('a');
         a.href = item.url;
-        a.textContent = item.title.length > 30 ? item.title.substring(0, 30) + '...' : item.title; // Trim the title if it's too long
+        a.textContent = item.title; // Remove truncation logic
         a.target = '_blank'; // Open link in a new tab
 
         const deleteButton = document.createElement('button');
