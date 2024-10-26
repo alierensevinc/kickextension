@@ -13,18 +13,25 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             const url = tabs[0].url;
             if (url) {
-                addUrl(url);
+                toggleUrl(url);
             } else {
                 console.error('Unable to retrieve the URL.');
             }
         });
     });
 
-    // Function to add a URL to the watch list
-    function addUrl(url) {
+    // Function to toggle a URL in the watch list
+    function toggleUrl(url) {
         chrome.storage.sync.get(['watchList'], function(result) {
-            const watchList = result.watchList || [];
-            if (!watchList.includes(url)) {
+            let watchList = result.watchList || [];
+            if (watchList.includes(url)) {
+                // Remove URL from watch list
+                watchList = watchList.filter(item => item !== url);
+                chrome.storage.sync.set({ watchList: watchList }, function() {
+                    removeUrlFromList(url);
+                });
+            } else {
+                // Add URL to watch list
                 watchList.push(url);
                 chrome.storage.sync.set({ watchList: watchList }, function() {
                     addUrlToList(url);
@@ -59,5 +66,16 @@ document.addEventListener('DOMContentLoaded', function() {
         urlItem.appendChild(a);
         urlItem.appendChild(deleteButton);
         urlList.appendChild(urlItem);
+    }
+
+    // Function to remove a URL from the list in the popup
+    function removeUrlFromList(url) {
+        const urlItems = document.querySelectorAll('.url-item');
+        urlItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link && link.href === url) {
+                urlList.removeChild(item);
+            }
+        });
     }
 });
